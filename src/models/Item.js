@@ -1,41 +1,38 @@
 module.exports = (sequelize, DataTypes) => {
-  const Category = sequelize.define(
-    "Category",
+  const Item = sequelize.define(
+    "Item",
     {
-      category_id: {
+      item_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      category_name: {
+      item_price: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-          notEmpty: true,
-        },
       },
     },
     {
       underscored: true,
     },
   );
-  Category.associate = db => {
-    Category.belongsTo(db.User, {
+  Item.associate = db => {
+    Item.belongsTo(db.Bill, {
       foreignKey: {
-        name: "user_id",
+        name: "Bill_id",
         allowNull: false,
       },
       onDelete: "RESTRICT",
     }),
-      Category.hasMany(db.Menu, {
+      Item.belongsTo(db.Menu, {
         foreignKey: {
-          name: "categoty_id",
+          name: "Menu_id",
           allowNull: false,
         },
         onDelete: "RESTRICT",
       });
   };
 
-  return Category;
+  return Item;
 };
