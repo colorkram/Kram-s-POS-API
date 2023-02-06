@@ -47,17 +47,12 @@ db.Sequelize = Sequelize;
 (async () => {
   try {
     await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
-    // const all = await sequelize.models.User.findAll();
-    console.log(
-      "all",
-      await sequelize.models["User"].findAll({
-        model: sequelize.models["User"],
-      }),
-    );
+    // console.log("Connection has been established successfully.");
+    // // const all = await sequelize.models.User.findAll();
+    // console.log("all", await sequelize.models["Category"].findAll());
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
 })();
-
+console.log(db);
 module.exports = db;

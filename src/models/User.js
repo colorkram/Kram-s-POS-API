@@ -27,9 +27,6 @@ module.exports = (sequelize, DataTypes) => {
       underscored: true,
       tableName: "User",
     },
-    {
-      underscored: true,
-    },
   );
   User.associate = db => {
     User.hasMany(db.Menu, {

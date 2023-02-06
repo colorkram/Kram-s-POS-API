@@ -23,7 +23,9 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
+      timestamps: false,
       underscored: true,
+      tableName: "Bill",
     },
   );
   Bill.associate = db => {

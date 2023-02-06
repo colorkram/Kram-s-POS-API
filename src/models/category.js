@@ -17,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
+      timestamps: false,
       underscored: true,
+      tableName: "Category",
     },
   );
   Category.associate = db => {
@@ -30,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     }),
       Category.hasMany(db.Menu, {
         foreignKey: {
-          name: "categoty_id",
+          name: "category_id",
           allowNull: false,
         },
         onDelete: "RESTRICT",

@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-
       price: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -25,7 +24,9 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
+      timestamps: false,
       underscored: true,
+      tableName: "Menu",
     },
   );
   Menu.associate = db => {
@@ -38,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     }),
       Menu.belongsTo(db.Category, {
         foreignKey: {
-          name: "categoty_id",
+          name: "category_id",
           allowNull: false,
         },
         onDelete: "RESTRICT",
