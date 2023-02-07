@@ -44,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         onDelete: "RESTRICT",
       });
+    Menu.belongsToMany(db.Bill, { through: db.Item, foreignKey: "menu_id" });
   };
 
   return Menu;

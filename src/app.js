@@ -11,6 +11,7 @@ app.use(cors());
 const drawerController = require("./controller/drawer-controller");
 const categoryController = require("./controller/category-controller");
 const menuController = require("./controller/menu-controller");
+const billController = require("./controller/bill-controller");
 const bodyParser = require("body-parser");
 
 // app.use(
@@ -28,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/category", categoryController);
 app.use("/menu", menuController);
 app.use("/drawer", drawerController);
+app.use("/bill", billController);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`server running on port: ${port}`));

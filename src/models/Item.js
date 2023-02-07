@@ -12,6 +12,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      bill_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      menu_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {
       timestamps: false,
@@ -19,22 +27,22 @@ module.exports = (sequelize, DataTypes) => {
       tableName: "Item",
     },
   );
-  Item.associate = db => {
-    Item.belongsTo(db.Bill, {
-      foreignKey: {
-        name: "Bill_id",
-        allowNull: false,
-      },
-      onDelete: "RESTRICT",
-    }),
-      Item.belongsTo(db.Menu, {
-        foreignKey: {
-          name: "Menu_id",
-          allowNull: false,
-        },
-        onDelete: "RESTRICT",
-      });
-  };
+  // Item.associate = db => {
+  //   Item.belongsTo(db.Bill, {
+  //     foreignKey: {
+  //       name: "Bill_id",
+  //       allowNull: false,
+  //     },
+  //     onDelete: "RESTRICT",
+  //   }),
+  //     Item.belongsTo(db.Menu, {
+  //       foreignKey: {
+  //         name: "Menu_id",
+  //         allowNull: false,
+  //       },
+  //       onDelete: "RESTRICT",
+  //     });
+  // };
 
   return Item;
 };

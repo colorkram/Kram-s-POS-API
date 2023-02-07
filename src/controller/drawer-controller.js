@@ -70,4 +70,16 @@ router.post("/some-path/:test", async function (req, res) {
   res.send("ok");
 });
 
+router.get("/alldrawer/:user_id", async function (req, res) {
+  const user_id = req.params.user_id;
+  // console.log(req.params.user_id);
+  const drawer_id = await Drawer.findAll({
+    where: {
+      user_id: user_id,
+    },
+  });
+  // console.log("bill", bill);
+  res.send(drawer_id);
+});
+
 module.exports = router;

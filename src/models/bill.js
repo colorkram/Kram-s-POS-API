@@ -43,13 +43,14 @@ module.exports = (sequelize, DataTypes) => {
         },
         onDelete: "RESTRICT",
       }),
-      Bill.hasMany(db.Item, {
-        foreignKey: {
-          name: "bill_id",
-          allowNull: false,
-        },
-        onDelete: "RESTRICT",
-      });
+      // Bill.hasMany(db.Item, {
+      //   foreignKey: {
+      //     name: "bill_id",
+      //     allowNull: false,
+      //   },
+      //   onDelete: "RESTRICT",
+      // });
+      Bill.belongsToMany(db.Menu, { through: db.Item, foreignKey: "bill_id" });
   };
   return Bill;
 };
