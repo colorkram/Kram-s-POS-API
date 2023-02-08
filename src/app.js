@@ -31,7 +31,7 @@ app.use("/category", categoryController);
 app.use("/menu", menuController);
 app.use("/drawer", drawerController);
 app.use("/bill", billController);
-app.use("/register", userController);
+app.use("/user", userController);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`server running on port: ${port}`));
