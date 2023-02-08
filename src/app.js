@@ -12,6 +12,7 @@ const drawerController = require("./controller/drawer-controller");
 const categoryController = require("./controller/category-controller");
 const menuController = require("./controller/menu-controller");
 const billController = require("./controller/bill-controller");
+const userController = require("./controller/user-controller");
 const bodyParser = require("body-parser");
 
 // app.use(
@@ -30,6 +31,7 @@ app.use("/category", categoryController);
 app.use("/menu", menuController);
 app.use("/drawer", drawerController);
 app.use("/bill", billController);
+app.use("/register", userController);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`server running on port: ${port}`));
