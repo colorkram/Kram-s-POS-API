@@ -14,6 +14,7 @@ const menuController = require("./controller/menu-controller");
 const billController = require("./controller/bill-controller");
 const userController = require("./controller/user-controller");
 const bodyParser = require("body-parser");
+const authenticateMiddleware = require("./middlewares/authenticate");
 
 // app.use(
 //   rateLimit({
@@ -27,10 +28,10 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/category", categoryController);
-app.use("/menu", menuController);
-app.use("/drawer", drawerController);
-app.use("/bill", billController);
+app.use("/category", authenticateMiddleware, categoryController);
+app.use("/menu", authenticateMiddleware, menuController);
+app.use("/drawer", authenticateMiddleware, drawerController);
+app.use("/bill", authenticateMiddleware, billController);
 app.use("/user", userController);
 
 const port = process.env.PORT || 8000;

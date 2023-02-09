@@ -4,10 +4,12 @@ const { User, Drawer, Bill } = require("../models");
 const sequelize = require("sequelize");
 
 router.post("/drawer", async function (req, res) {
+  // console.log("req", req.user);
+  const user_id = req.user.user_id;
   let currentDate = new Date().toJSON().slice(0, 10);
   const createDrawer = await Drawer.create({
     start_money: req.body.start_money,
-    user_id: req.body.user_id,
+    user_id: user_id,
     open_date: currentDate,
   });
 
@@ -38,7 +40,7 @@ router.patch("/close-drawer", async function (req, res) {
   const difValue = req.body.act_drawer - totle;
 
   //   console.log(totle);
-  const closeDrawe = await Drawer.update(
+  const closeDrawer = await Drawer.update(
     {
       close_date: currentDate,
       sale_money: realTotal,
@@ -56,26 +58,25 @@ router.patch("/close-drawer", async function (req, res) {
   });
 });
 
-router.post("/some-path/:test", async function (req, res) {
-  // req.params == {test: 444}
-  // req.query == {aaa: 555, bbb: 666}
-  // req.body == {sale_money: 50, user_id: 1}
-
-  const saleMoney = req.body.sale_money;
-  const UserId = req.body.user_id;
-
-  console.log("saleMoney:", saleMoney);
-  console.log("saleMoney:", req.body.sale_money);
-
-  res.send("ok");
-});
-
 router.get("/alldrawer/:user_id", async function (req, res) {
   const user_id = req.params.user_id;
   // console.log(req.params.user_id);
   const drawer_id = await Drawer.findAll({
     where: {
       user_id: user_id,
+    },
+  });
+  // console.log("bill", bill);
+  res.send(drawer_id);
+});
+
+router.get("/currentdrawer/", async function (req, res) {
+  const user_id = req.user.user_id;
+  // console.log(req.params.user_id);
+  const drawer_id = await Drawer.findOne({
+    where: {
+      user_id: user_id,
+      close_date: null,
     },
   });
   // console.log("bill", bill);
