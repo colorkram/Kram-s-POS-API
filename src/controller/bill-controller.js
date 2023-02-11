@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Bill, Menu, Drawer } = require("../models");
+const { Bill, Menu, Drawer, Item } = require("../models");
 
 router.post("/bill", async function (req, res) {
   const createBill = await Bill.create({
@@ -10,8 +10,28 @@ router.post("/bill", async function (req, res) {
     user_id: req.body.user_id,
     drawer_id: req.body.drawer_id,
   });
+  console.log(createBill);
 
-  res.status(201).json(createBill);
+  const createItem = await Item.create({
+    // item_id: req.body.item_id,
+    item_price: req.body.item_price, //มาจากหน้าบ้าน
+    bill_id: createBill.bill_id,
+    menu_id: req.body.menu_id, //มาจากหน้าบ้าน
+    payment_type: req.body.payment_type, // มาจากหน้าบ้าน
+    selectOrder: req.body.map(e => [
+      {
+        menu_id: e.menu_id,
+        menu_name: e.menu_name,
+        price: e.price,
+        image: e.image,
+        user_id: e.user_id,
+        category_id: e.category_id,
+        action: e.action,
+      },
+    ]),
+  });
+  console.log(selectOrder);
+  res.status(201).json(createItem);
 });
 
 router.get("/bill/:bill_id", async function (req, res) {
