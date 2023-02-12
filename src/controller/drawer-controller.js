@@ -6,10 +6,10 @@ const sequelize = require("sequelize");
 router.post("/drawer", async function (req, res) {
   // console.log("req", req.user);
   const user_id = req.user.user_id;
-  let currentDate = new Date().toJSON().slice(0, 10);
+  let currentDate = new Date().toJSON();
   const createDrawer = await Drawer.create({
     start_money: req.body.start_money,
-    user_id: user_id,
+    user_id: req.user.user_id,
     open_date: currentDate,
   });
 
@@ -43,6 +43,7 @@ router.patch("/close-drawer", async function (req, res) {
   const closeDrawer = await Drawer.update(
     {
       close_date: currentDate,
+      user_id: req.user.user_id,
       sale_money: realTotal,
       exp_drawer: totle,
       act_drawer: req.body.act_drawer,
