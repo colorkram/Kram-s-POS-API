@@ -59,13 +59,14 @@ router.patch("/close-drawer", async function (req, res) {
   });
 });
 
-router.get("/alldrawer/:user_id", async function (req, res) {
-  const user_id = req.params.user_id;
+router.get("/alldrawer/", async function (req, res) {
+  const user_id = req.user.user_id;
   // console.log(req.params.user_id);
   const drawer_id = await Drawer.findAll({
     where: {
       user_id: user_id,
     },
+    order: [["drawer_id", "DESC"]],
   });
   // console.log("bill", bill);
   res.send(drawer_id);
