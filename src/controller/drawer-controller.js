@@ -84,5 +84,49 @@ router.get("/currentdrawer/", async function (req, res) {
   // console.log("bill", bill);
   res.send(drawer_id);
 });
+//
+//
+//
+//
+//
+//
+router.patch("/currentdrawer", async function (req, res) {
+  const startMenu = await Drawer.findOne({
+    where: { drawer_id: req.body.drawer_id },
+  }); //findOne เพื่อหาค่าเริ้มต้นของถาดเก็บเงิน
+  console.log("test test test", startMenu.start_money);
+  let currentDate = new Date().toJSON();
+  const drawerId = req.body.drawer_id;
 
+  const sumsung = await Bill.findAll({
+    attributes: [[sequelize.fn("sum", sequelize.col("total")), "togeter"]],
+    raw: true,
+    where: { drawer_id: req.body.drawer_id },
+
+    // group: ["Bill.drawer_id"],
+
+    // order: sequelize.literal('total DESC')
+  });
+  const realTotal = sumsung[0].togeter;
+  console.log("sumsung", realTotal);
+
+  const totle = +realTotal + startMenu.start_money;
+
+  //   console.log(totle);
+  const closeDrawer = await Drawer.update(
+    {
+      close_date: currentDate,
+      user_id: req.user.user_id,
+      sale_money: realTotal,
+      exp_drawer: totle,
+    },
+    {
+      where: { drawer_id: drawerId },
+    },
+  );
+
+  res.status(201).json({
+    status: "ok",
+  });
+});
 module.exports = router;
