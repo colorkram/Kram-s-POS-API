@@ -115,7 +115,7 @@ router.patch("/currentdrawer", async function (req, res) {
   //   console.log(totle);
   const closeDrawer = await Drawer.update(
     {
-      close_date: currentDate,
+      // close_date: currentDate,
       user_id: req.user.user_id,
       sale_money: realTotal,
       exp_drawer: totle,
