@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
+      category_status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
     },
     {
       timestamps: false,

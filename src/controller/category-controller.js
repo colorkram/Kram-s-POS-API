@@ -15,4 +15,15 @@ router.get("/category/", async function (req, res) {
   res.send(category);
 });
 
+router.post("/category", async function (req, res) {
+  const createMenu = await Category.create({
+    user_id: req.user.user_id,
+    category_name: req.body.category_name,
+    category_status: req.body.category_status,
+  });
+  //
+
+  res.status(201).json("done");
+});
+
 module.exports = router;
